@@ -1,0 +1,95 @@
+{
+  "steps": {
+    "1": [
+      "c01-drift"
+    ],
+    "2": [
+      "c01-drift",
+      "c02-spec"
+    ],
+    "3": [
+      "c01-drift",
+      "c02-spec",
+      "c03-review"
+    ],
+    "4": [
+      "c01-drift",
+      "c02-spec",
+      "c03-review",
+      "c04-tasks"
+    ],
+    "5": [
+      "c01-drift",
+      "c02-spec",
+      "c03-review",
+      "c04-tasks",
+      "c05-perishable"
+    ],
+    "6": [
+      "c01-drift",
+      "c02-spec",
+      "c03-review",
+      "c04-tasks",
+      "c05-perishable",
+      "c06-tests"
+    ],
+    "7": [
+      "c01-drift",
+      "c02-spec",
+      "c03-review",
+      "c04-tasks",
+      "c05-perishable",
+      "c06-tests",
+      "c07-trace"
+    ],
+    "8": [
+      "c01-drift",
+      "c02-spec",
+      "c03-review",
+      "c04-tasks",
+      "c05-perishable",
+      "c06-tests",
+      "c07-trace",
+      "c08-redgreen"
+    ],
+    "9": [
+      "c01-drift",
+      "c02-spec",
+      "c03-review",
+      "c04-tasks",
+      "c05-perishable",
+      "c06-tests",
+      "c07-trace",
+      "c08-redgreen",
+      "c09-weight"
+    ],
+    "demo": [
+      "c01-drift",
+      "c02-spec",
+      "c03-review",
+      "c04-tasks",
+      "c-demo-start"
+    ],
+    "demo-done": [
+      "c01-drift",
+      "c02-spec",
+      "c03-review",
+      "c04-tasks",
+      "c-demo-start",
+      "c-demo"
+    ]
+  },
+  "commits": {
+    "c01-drift": "Record the drift between the PRD, Slack and the code",
+    "c02-spec": "Convert the PRD into a structured spec (first draft)",
+    "c03-review": "Review the spec against the product owner's answers",
+    "c04-tasks": "Break the spec down into tasks, by requirement",
+    "c05-perishable": "Implement REQ-003: perishable items are not eligible",
+    "c06-tests": "Write a test for every acceptance criterion, named by requirement",
+    "c07-trace": "Build the traceability check and write the REQ IDs next to the code",
+    "c08-redgreen": "Prove the REQ-003 tests are red without the fix",
+    "c09-weight": "Implement REQ-008: items over 20 kg are not eligible",
+    "c-demo-start": "The recall decision from Slack, not yet in the spec",
+    "c-demo": "REQ-010: recalled items are not eligible"
+  }
+}

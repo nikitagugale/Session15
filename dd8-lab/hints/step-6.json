@@ -1,0 +1,38 @@
+{
+  "milestone": 6,
+  "title": "Tests from the acceptance criteria",
+  "schedule": {
+    "targetMinutes": 11,
+    "hintAfterMinutes": [
+      5,
+      8,
+      10
+    ]
+  },
+  "levels": [
+    {
+      "label": "Nudge",
+      "text": "Open the spec and count the Given / When / Then of each requirement. You need at least that many tests for it, and each name starts with the ID. One criterion is one test."
+    },
+    {
+      "label": "Approach",
+      "text": "Most rules have two sides and a boundary. Test each side, and test the number on the line (the 6th unit and the 7th; a store with exactly the buffer; a price of exactly $2,000).\n\nAsk Claude to write the tests from the criteria. Then break the code yourself (change a 2 to a 3) and see which test goes red. A test that stays green proves nothing."
+    },
+    {
+      "label": "Near-solution",
+      "text": "REQ-001: three tests. REQ-002: two. REQ-004: two. REQ-005: three. REQ-006: one. REQ-007: two. REQ-009: three. REQ-003 is done. Put them in one file, for instance tests/spec/requirements.test.js.\n\nLeave the weight limit alone: it is not built, and its tests are the homework. Then `npm test -- --grep REQ-` runs them all."
+    }
+  ],
+  "reveal": {
+    "referenceBrief": "CONTEXT: spec/bopis-eligibility.md lists the requirements with given/when/then criteria. src/bopis/eligibility.js implements all of them except REQ-008 (the weight limit, a later task). REQ-003 already has its tests in tests/spec/req-003-perishable.test.js.\n\nTASK: Write one test for every acceptance criterion of REQ-001, REQ-002, REQ-004, REQ-005, REQ-006, REQ-007 and REQ-009.\n\nCONSTRAINTS: Every test name starts with its requirement ID and uses the wording of the criterion. Test both sides of each rule and each boundary. Do not change src/. Do not touch tests/existing. Do not write tests for REQ-008.\n\nACCEPTANCE: At least as many tests for each requirement as it has criteria, in tests/spec/. npm test -- --grep REQ- is green. If I change a rule slightly (a 2 to a 3, a > to a >=), at least one test goes red.\n\nVERIFY: Make three small mistakes in src/ on purpose and check that a test notices each. Put the code back. Then npm run step -- 6, and commit.",
+    "approach": "Slide 160 again, now for the whole spec: tests worded close to the criteria, so that drift between the two is easy to see, and each one able to fail. The check injects sixteen slightly wrong versions of the rules; your tests have to notice nearly all of them.\n\nThe test names are the other half of the work: they are how the traceability check in milestone 7 finds the tests of a requirement.",
+    "commonMistakes": [
+      "Fewer tests than criteria: some criterion has no test.",
+      "Testing one side of a rule only.",
+      "Missing the boundaries: exactly 6 units, exactly the buffer, exactly $2,000.",
+      "Test names that describe the code (\"returns false\") and not the requirement (\"REQ-004: ...\").",
+      "Asserting only that the answer is a boolean.",
+      "Writing tests for the weight limit, which is not built: they fail."
+    ]
+  }
+}

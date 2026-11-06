@@ -1,0 +1,17 @@
+{
+  "docs/prd.md": "e08e1813d65ad8a20cc5416446da8715dddf1f85ce9b0b3d59d51da18b449e0e",
+  "docs/slack-thread.md": "754c2c9a7fb8a1e62299d9c2f70c479d72927b4ba16840cc5d661f2937d13cef",
+  "src/bopis/catalog.js": "5d1242c6c5f4f1ca6ad9546690d56ac664c63f45525b2ec226f1a0b81fe36610",
+  "src/bopis/eligibility.js": "d7bb5b01d82e8e25aaef1f5b63a066377af8c8b98a00939c6ae040ac25f1c798",
+  "tests/baseline/kit.test.js": "2188808e930323ef9edd5eb22faddc32059cf38923673c21a047215dfc400c39",
+  "tests/existing/eligibility.test.js": "fe62280d5c636bc75b57d44e061b50876161f29f961d4ad7e2e2f1b2d410fa8e",
+  "scripts/help.mjs": "97a37e8356b07625d0474cefd0fd48d5971eaccf3420d2a93b68b34bead85584",
+  "scripts/hint.mjs": "bc7529f8a508d15a1ada20ffb0dd6aa2be59e21d945a5fdf0faf2dc638f052c0",
+  "scripts/lab-state.mjs": "5aeac601fd849af712a48fce08e869a532f79dbd33ffd3d3ba6d723d04ea9ee6",
+  "scripts/lab.mjs": "5612126d841de1bb0d587187bbbfe2d601d79eb3273c42292176ecb2fd9a718d",
+  "scripts/milestones.mjs": "45c901921f0b2b1f7328e72cd53dc430e02f171f56d2a44a6d2c76b08152678e",
+  "scripts/po.mjs": "4cf8d6c5d62a86500fb8d67d8398c58085378686a114d30eb98afd69f1820f57",
+  "scripts/progress.mjs": "bd7441758675c789431831ba0a736209ec53bd6a0cdf298ccdc8f105cd59009e",
+  "scripts/test.mjs": "86cf7c12203624c9352974f27f5d20c91de7341fcfa2351eea965d71a37b64a2",
+  "scripts/trace.mjs": "b3ad14887a5677b542ca1a4d7c39095c8985d9f8b2b500a1e80fae421355fbfc"
+}

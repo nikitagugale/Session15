@@ -1,0 +1,38 @@
+{
+  "milestone": 7,
+  "title": "Build the traceability check",
+  "schedule": {
+    "targetMinutes": 12,
+    "hintAfterMinutes": [
+      6,
+      9,
+      11
+    ]
+  },
+  "levels": [
+    {
+      "label": "Nudge",
+      "text": "Think about what the tool must find: the requirements (in the spec), the code that mentions each ID, and the tests named after each ID. A table with three columns is enough. The exit code is how a pull request check would fail."
+    },
+    {
+      "label": "Approach",
+      "text": "A requirement is a heading \"## REQ-001\" in spec/. Code is any file in src/ that contains the ID. A test is a test( or it( call whose NAME starts with the ID: a comment that mentions the ID is not a test.\n\nRead the files every time you run, and keep nothing between runs. Also report IDs that appear in code or tests but are not in the spec. And write the IDs next to the rules in src/bopis/eligibility.js, in comments."
+    },
+    {
+      "label": "Near-solution",
+      "text": "The contract is on the card: node tools/trace.mjs [--root <dir>] [--json] [--base <git-ref>]. --json prints an object with ok, requirements (each with id, code and tests) and orphans. --base <ref> runs `git diff --name-only <ref>` and says DRIFT when something under src/ changed and nothing under spec/ did. Exit 0 only when everything is traced.\n\nOn your own project it should flag exactly one requirement: the weight limit, which has no code and no test yet."
+    }
+  ],
+  "reveal": {
+    "referenceBrief": "CONTEXT: spec/bopis-eligibility.md has the requirements as \"## REQ-00N\" headings. Code is in src/bopis/, tests in tests/ (node:test). Node 20, no dependencies.\n\nTASK: Write tools/trace.mjs, a traceability check, and put the REQ IDs in comments next to the rules in src/bopis/eligibility.js.\n\nCONSTRAINTS: Plain Node, no packages. Read the files on every run and keep nothing between runs. A requirement is a heading in spec/, not an ID in a sentence. A test is a test() or it() whose name starts with the ID, not a comment. Do not change the behaviour of the code: comments only.\n\nACCEPTANCE: node tools/trace.mjs prints a table (Requirement, Code, Tests, Status). Exit code 1 if a requirement has no code or no test, or if an ID in code or tests is not in the spec (an orphan). --json prints { ok, requirements: [{ id, code, tests }], orphans }. --root <dir> checks another folder. --base <ref> adds a DRIFT check: src/ changed since <ref> and spec/ did not.\n\nVERIFY: Run it on this project (it should flag only the weight limit). Make a small test project of your own with one gap of each kind. Then npm run step -- 7, and commit.",
+    "approach": "Slide 158: a traceability table checked once is a table that is lying by sprint two. A script is checked on every change, so the point of this milestone is the script, and the small decisions inside it: what counts as a test, what counts as code, and what to do with an ID the spec has never heard of.\n\nThe drift check is the same idea over time: a change to behaviour with no change to the spec is the exact shape of the three-sprint drift in the case.",
+    "commonMistakes": [
+      "Counting a comment that mentions an ID as a test.",
+      "Treating \"see REQ-005\" in a sentence as a requirement.",
+      "Saving a table to a file and reading it back: it is stale the next day.",
+      "Exit code 0 even when a requirement has no test.",
+      "Forgetting orphans: an ID in the code that the spec has never heard of.",
+      "Writing the IDs in the code with a typo, so that one requirement shows no code."
+    ]
+  }
+}

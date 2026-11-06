@@ -1,0 +1,37 @@
+{
+  "milestone": 4,
+  "title": "Generate the task breakdown",
+  "schedule": {
+    "targetMinutes": 10,
+    "hintAfterMinutes": [
+      5,
+      7,
+      9
+    ]
+  },
+  "levels": [
+    {
+      "label": "Nudge",
+      "text": "A task list is a table with one row for each piece of work, and every row names a requirement. If a row has no requirement ID, ask why that work is needed at all."
+    },
+    {
+      "label": "Approach",
+      "text": "Most of the requirements are already built. For those the only missing work is a test that names the requirement. Two are not built at all, and for those you need a code task and a test task. Look at the code before you ask the AI to plan, or it will plan to rebuild what already exists."
+    },
+    {
+      "label": "Near-solution",
+      "text": "Columns: Task, Requirement, Files, Notes. Put \"new\" next to a file that does not exist yet, so the plan is honest about it. Say \"already implemented, tests only\" for the built ones, and \"not built\" for the others.\n\nAdd two more tasks that serve every requirement: writing the IDs next to the code, and building the traceability check. And do not plan to reuse isPerishable(): it decides by shelf life."
+    }
+  ],
+  "reveal": {
+    "referenceBrief": "CONTEXT: spec/bopis-eligibility.md is the reviewed spec (nine requirements). The code is src/bopis/eligibility.js and my drift report is docs/drift-report.md: it says which requirements are built.\n\nTASK: Write docs/tasks.md: a task breakdown mapped by requirement ID.\n\nCONSTRAINTS: Every task cites a requirement. Every requirement has at least one task. Do not plan code for a requirement that is already built: its task is a test. Do not plan any work that no requirement asks for. Do not change any code yet.\n\nACCEPTANCE: A table with the columns Task, Requirement, Files, Notes. Each Files cell names real paths; mark a file that does not exist yet as new. The two requirements that are not built have a code task (src/bopis/eligibility.js) and a test task (under tests/spec/).\n\nVERIFY: Check that the \"already implemented\" claims are true by reading the code. Then npm run step -- 4, and commit.",
+    "approach": "The task list is the link between the spec and the work. Its value is in what it refuses: work with no requirement, and code for requirements that already have code. A plan that rebuilds what exists is how code drifts away from its spec in the first place.",
+    "commonMistakes": [
+      "Planning new code for requirements that are already built.",
+      "Tasks with no requirement ID (\"clean up the module\").",
+      "Forgetting the unbuilt requirement that is not the first one in the list (the weight limit).",
+      "A Files column that says \"the code\" and names no path.",
+      "Planning to reuse isPerishable() from the catalog."
+    ]
+  }
+}

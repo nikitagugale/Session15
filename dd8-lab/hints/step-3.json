@@ -1,0 +1,38 @@
+{
+  "milestone": 3,
+  "title": "Review against real intent",
+  "schedule": {
+    "targetMinutes": 10,
+    "hintAfterMinutes": [
+      5,
+      7,
+      9
+    ]
+  },
+  "levels": [
+    {
+      "label": "Nudge",
+      "text": "Run `npm run po`. It prints the product owner's answers to the team's questions. Read each answer, then compare it with what your spec says, one requirement at a time. Where did the AI guess? Where did it copy a PRD that was out of date?"
+    },
+    {
+      "label": "Approach",
+      "text": "Three places need to change and one thing needs adding. Look at the stock buffer (what did the team decide in Slack, and did the product owner confirm it?), the definition of perishable (what does the product owner say it depends on?), and the rule that only the code knew about (does the product owner want it kept?). Then give each of the four vague sentences an answer: a requirement, a non-goal, or dropped."
+    },
+    {
+      "label": "Near-solution",
+      "text": "The buffer is 2. Perishable is five categories and not the date on the packet, and pantry is not perishable. The $2,000 rule becomes a new requirement (REQ-009), with \"exactly $2,000 is fine\" as a criterion.\n\nWrite the review as a table with the columns Item, What the AI wrote, Decision, Why. Add an \"Approved by\" line to the spec, a second line to the changelog, and commit the spec a second time. The first commit is the AI's draft; the second is your review."
+    }
+  ],
+  "reveal": {
+    "referenceBrief": "CONTEXT: spec/bopis-eligibility.md is a first draft converted from the PRD by an AI. The product owner's answers are in the output of npm run po (I will paste them). The Slack thread is docs/slack-thread.md.\n\nTASK: Review the draft against the product owner's answers and correct it. Then write docs/spec-review.md.\n\nCONSTRAINTS: The product owner's answers win over the PRD and over the draft. Change a requirement only where an answer says to, and say which answer. Do not renumber anything. Keep every other requirement as it is. List every place where the draft guessed.\n\nACCEPTANCE: The spec says what the product owner said about perishable (by category, with pantry not perishable), about the buffer, and about the $2,000 rule (a new requirement). Each vague sentence has an answer. The spec has \"Approved by\", and two changelog entries. The review is a table: Item, What the AI wrote, Decision, Why.\n\nVERIFY: Reread each changed requirement against the answer it came from. Then npm run step -- 3, and commit.",
+    "approach": "Slide 159 says it: an AI suggestion that nobody reviews is a guess wearing the spec's authority. The review is where intent is locked in, and the person who can lock it is the owner, not the AI and not you.\n\nNotice what the reviewed spec does that the PRD never did: it settles a definition (perishable) by category, it takes the Slack decision on board (buffer 2), and it gives a rule that had no reason to exist one (REQ-009).",
+    "commonMistakes": [
+      "Approving the AI's definition of perishable because it sounds reasonable.",
+      "Updating the requirement but not the changelog: the change is silent again.",
+      "Committing the corrected spec in place of the first draft, so the history shows nothing.",
+      "Leaving the $2,000 rule in the code with no requirement.",
+      "Answering the vague sentences in the review only, and not in the spec.",
+      "A review table whose Decision column says \"ok\" for everything."
+    ]
+  }
+}

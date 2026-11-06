@@ -1,0 +1,38 @@
+{
+  "milestone": 5,
+  "title": "Implement the missing requirement",
+  "schedule": {
+    "targetMinutes": 10,
+    "hintAfterMinutes": [
+      5,
+      7,
+      9
+    ]
+  },
+  "levels": [
+    {
+      "label": "Nudge",
+      "text": "Write the tests first, from the criteria in the spec, and run them: they should be red. Then write the rule. The name of every test starts with the requirement ID, like \"REQ-003: ...\"."
+    },
+    {
+      "label": "Approach",
+      "text": "Before you write the rule, check what the spec says perishable means. Is there already a helper for it? Does the helper do what the SPEC says? A helper that exists is not a helper that is right. Put the requirement ID in a comment next to the rule, so that \"why does this code exist?\" has a one-line answer."
+    },
+    {
+      "label": "Near-solution",
+      "text": "Perishable is decided by the category: produce, dairy, meat, frozen and bakery. Nothing else changes: not the weight rule, not the other rules.\n\nTests: one for each side of the rule, and one for each place where the date and the category disagree (a frozen item with a long shelf life is refused; a pantry item with a short one is not). Run `npm test -- --grep REQ-003`."
+    }
+  ],
+  "reveal": {
+    "referenceBrief": "CONTEXT: src/bopis/eligibility.js decides BOPIS eligibility. spec/bopis-eligibility.md is the reviewed spec; REQ-003 says what perishable means (by category). docs/tasks.md is the plan. Tests use node:test and live in tests/spec/.\n\nTASK: Implement REQ-003 in src/bopis/eligibility.js, and write its tests first.\n\nCONSTRAINTS: Do what REQ-003 says and nothing else: change no other rule, and do not touch tests/existing. Do not reuse isPerishable() from catalog.js (it decides by shelf life, and the spec does not). Put \"REQ-003\" in a comment next to the rule. Every test name starts with \"REQ-003:\".\n\nACCEPTANCE: One test for each acceptance criterion of REQ-003 in tests/spec/req-003-perishable.test.js. They fail before the change and pass after it. npm test is green.\n\nVERIFY: npm test -- --grep REQ-003, then npm test. Then npm run step -- 5, and commit.",
+    "approach": "This is slide 160 in practice: write the requirement-derived test before the implementation, watch it fail, then make it pass, with assertions worded close to the acceptance criteria.\n\nThe trap is the helper that is already in the repo. AI assistants find existing code and reuse it, which is usually right. Here the spec and the helper disagree, and only the review in milestone 3 tells you which one wins.",
+    "commonMistakes": [
+      "Wiring in isPerishable() from catalog.js: it uses shelf life, so frozen food gets through and pantry items with a short date are refused.",
+      "Tests that only check the answer is a boolean, or assert true: they pass with or without the feature.",
+      "Testing only the refused side of the rule: nothing then stops \"refuse everything\".",
+      "Changing other rules while you are there (the weight limit is the homework).",
+      "Test names that do not start with the requirement ID.",
+      "No requirement ID in the code."
+    ]
+  }
+}

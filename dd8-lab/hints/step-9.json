@@ -1,0 +1,36 @@
+{
+  "milestone": 9,
+  "title": "Homework: a second requirement",
+  "schedule": {
+    "targetMinutes": 60,
+    "hintAfterMinutes": [
+      10,
+      20,
+      30
+    ]
+  },
+  "levels": [
+    {
+      "label": "Nudge",
+      "text": "The same loop as before, shorter: the requirement is already in your spec (REQ-008). Tests first, then the rule, then the ID in the code, then the trace check."
+    },
+    {
+      "label": "Approach",
+      "text": "The limit is 20 kg: an item of exactly 20 is eligible, an item of 20.1 is not. An item with no weight at all is eligible, because a missing field counts as \"no\". Test both sides and the boundary."
+    },
+    {
+      "label": "Near-solution",
+      "text": "One new constant and one new line in src/bopis/eligibility.js, with REQ-008 in a comment. At least three tests whose names start with REQ-008. Then `npm run trace` should print \"Every requirement is traced\" and exit 0."
+    }
+  ],
+  "reveal": {
+    "referenceBrief": "CONTEXT: REQ-008 in spec/bopis-eligibility.md says items heavier than 20 kg are not eligible. Nothing in src/bopis/eligibility.js implements it yet. tools/trace.mjs is the traceability check.\n\nTASK: Implement REQ-008, test-first.\n\nCONSTRAINTS: Write the tests before the rule, and watch them fail. Change no other rule. Put \"REQ-008\" in a comment next to the rule. Test names start with \"REQ-008:\".\n\nACCEPTANCE: Tests for 20.1 kg (refused), exactly 20 kg (eligible) and 5 kg (eligible). npm test is green. npm run trace says every requirement is traced.\n\nVERIFY: Take the rule away and check the tests go red. npm run step -- 9, and npm run progress still shows 1 to 8 done.",
+    "approach": "The homework is the whole method on a smaller scale: a requirement that was found missing in milestone 1, specified in milestone 2, reviewed in milestone 3, planned in milestone 4, and now built, tested and traced. It also tests that the earlier checks still pass after a real change.",
+    "commonMistakes": [
+      "Refusing exactly 20 kg (a >= where the spec says >).",
+      "Forgetting that an item with no weight is eligible.",
+      "No requirement ID in the code, so the trace check still shows a gap.",
+      "Breaking an earlier test while changing the code."
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "milestone": 1,
+  "title": "Find the drift",
+  "schedule": {
+    "targetMinutes": 10,
+    "hintAfterMinutes": [
+      5,
+      7,
+      9
+    ]
+  },
+  "levels": [
+    {
+      "label": "Nudge",
+      "text": "Make three lists before you write anything: what the PRD asks for (sections 1 to 8), what the code does, and what the Slack thread decided. Then compare them two at a time. A rule can be in the PRD and not in the code, in the code and not in the PRD, or in both with a different value."
+    },
+    {
+      "label": "Approach",
+      "text": "Read src/bopis/eligibility.js from the top, one `if` at a time, and tick off the PRD against it. Do not search for a word and stop at the first hit: a helper that exists is not a rule that is used, so check who calls it.\n\nIn the Evidence column, name the file and the line (or the words) that show each claim. If you use Claude, ask it to quote the line for every claim, then open the file and check three of them yourself."
+    },
+    {
+      "label": "Near-solution",
+      "text": "Nine rows belong in the table: the eight sections of the PRD, and one rule that the code follows but no requirement mentions.\n\nTwo PRD sections have no check in the code at all. One has a different number in the code, because of something said in Slack. One rule came from the fraud team in Slack and is written nowhere else. And look in src/bopis/catalog.js: does a helper that exists mean a rule that is enforced?"
+    }
+  ],
+  "reveal": {
+    "referenceBrief": "CONTEXT: bopis-service decides whether an item can be offered for in-store pickup. docs/prd.md is the PRD, docs/slack-thread.md is what the team decided in Slack, and src/bopis/ is the shipped code. Nothing has been changed yet.\n\nTASK: Write docs/drift-report.md: a table with one row for each requirement in sections 1 to 8 of the PRD, and one row for each rule the code follows that the PRD does not mention.\n\nCONSTRAINTS: Read the code, line by line. Do not search for a word and stop at the first match. A helper that exists but is never called is not an implementation: say so. Quote the line, or name the helper, that proves each claim. Change no file except the report.\n\nACCEPTANCE: Columns Item, Source, Status, Evidence. One row for each of PRD sections 1 to 8, plus one for each rule that is in the code or in Slack but in no requirement. Status says implemented, missing, differs (and how), or undocumented. Every Evidence cell names a file that exists.\n\nVERIFY: Open the file and check three of the claims yourself. Then npm run step -- 1.",
+    "approach": "Spec-driven development starts by finding out how far the three sources of truth have already drifted: what was asked for, what was decided, what was built. The report is also the first test of how far to trust an AI summary: every claim it makes about the code can be checked in one click.\n\nThe quiet lesson is the dead helper. A search for \"perishable\" finds isPerishable(), which makes the rule look built. Reading the code shows that nothing calls it, and that it decides by shelf life, which is not what the product owner will say in milestone 3.",
+    "commonMistakes": [
+      "Searching for \"perishable\" and \"weight\", finding a helper and a field, and calling the rules implemented.",
+      "Copying the PRD into the table as if every line were built.",
+      "Missing the rule that only the code knows about (the $2,000 limit): it is in no requirement.",
+      "Calling the stock buffer \"implemented\" without noticing that the PRD says 3 and the code says 2.",
+      "An Evidence column that says \"the code\" and names no file or line.",
+      "Editing the PRD or the code to make the report tidier."
+    ]
+  }
+}

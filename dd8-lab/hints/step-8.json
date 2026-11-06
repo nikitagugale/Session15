@@ -1,0 +1,36 @@
+{
+  "milestone": 8,
+  "title": "Prove the test was red first",
+  "schedule": {
+    "targetMinutes": 5,
+    "hintAfterMinutes": [
+      2,
+      3,
+      4
+    ]
+  },
+  "levels": [
+    {
+      "label": "Nudge",
+      "text": "You need the fix out of the way for a moment. If it is committed, put the old file back from the starting commit: `git checkout <starting commit> -- src/bopis/eligibility.js` (the id is in .lab/baseline-commit). If it is not committed, `git stash` does it."
+    },
+    {
+      "label": "Approach",
+      "text": "Run `npm test -- --grep REQ-003` twice: once without the fix (some tests must fail), once with it (they all pass). Write the commands and what you saw in docs/red-green.md. Which of your tests did NOT fail without the fix? Is that right?"
+    },
+    {
+      "label": "Near-solution",
+      "text": "Without the fix, two tests fail: the ones that check what is refused. The tests that check what is NOT refused pass either way, and that is right. If none of your tests fail without the fix, they are not testing the rule.\n\nPut the fix back (`git stash pop`, or check the file out again) and commit the note. In the note, say in a sentence what a test that was never red would tell you."
+    }
+  ],
+  "reveal": {
+    "referenceBrief": "CONTEXT: REQ-003 (perishable items are not eligible) is implemented in src/bopis/eligibility.js and has tests in tests/spec/ whose names start with REQ-003.\n\nTASK: Prove that the REQ-003 tests were red without the fix, and green with it. Write docs/red-green.md.\n\nCONSTRAINTS: Take the fix away only temporarily (git stash, or git checkout of the starting commit's file), and put it back. Do not edit any test to make it fail. Do not leave a stash behind.\n\nACCEPTANCE: The note shows the commands (npm test -- --grep REQ-003) and what happened in both runs, names the tests that failed without the fix, explains why the others did not, and says what it would mean if a test had never been red. Everything is committed and git status is clean.\n\nVERIFY: git stash list prints nothing. Then npm run step -- 8.",
+    "approach": "Slide 160: a test that was never red is not proof the feature works; it is proof the test never checked anything. Watching it go red is the cheapest evidence there is, and it takes two minutes.\n\nThe step check does the same thing you did, in a scratch copy: it puts the shipped code back and runs your REQ-003 tests, and expects at least two to fail.",
+    "commonMistakes": [
+      "Tests that stay green with the fix taken away.",
+      "Leaving the fix stashed, so the project is broken and git status looks clean.",
+      "A note that says \"it worked\" and shows no command or output.",
+      "Taking the wrong thing away: removing the tests instead of the fix."
+    ]
+  }
+}

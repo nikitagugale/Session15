@@ -1,0 +1,38 @@
+{
+  "milestone": 2,
+  "title": "Convert the PRD to a spec",
+  "schedule": {
+    "targetMinutes": 14,
+    "hintAfterMinutes": [
+      6,
+      9,
+      12
+    ]
+  },
+  "levels": [
+    {
+      "label": "Nudge",
+      "text": "Decide the shape of one requirement before you ask for eight: an ID, a one-line statement, then at least one Given / When / Then. Then the parts around them that a spec needs: what is out of scope, what you could not test, who owns it, and a changelog."
+    },
+    {
+      "label": "Approach",
+      "text": "Ask Claude to convert the PRD section by section, and to FLAG any sentence it cannot test instead of guessing what it means. Section 9 of the PRD has four such sentences.\n\nA spec records what is WANTED, so it includes the requirements the code does not meet yet. Commit the first draft as it is, before you improve it: the next milestone needs the history."
+    },
+    {
+      "label": "Near-solution",
+      "text": "Eight requirements, one for each of sections 1 to 8, in the PRD's order (REQ-001 to REQ-008). A criterion with a number in it (\"a store with 3 units and a customer who wants 1\") can be turned into a test. One without (\"enough stock\") can only be argued about.\n\nThe parts around them are headings: Non-goals (the PRD lists what is out of scope), Flagged: too vague to test (the four sentences, each with the question you would ask), and Changelog. Put \"Owner: <a name>\" near the top."
+    }
+  ],
+  "reveal": {
+    "referenceBrief": "CONTEXT: docs/prd.md is the product requirements for BOPIS eligibility (sections 1 to 8 are rules, section 9 is general remarks, section 10 is out of scope). My drift report is in docs/drift-report.md.\n\nTASK: Convert the PRD into spec/bopis-eligibility.md.\n\nCONSTRAINTS: One \"## REQ-00N: title\" heading for each rule in sections 1 to 8, numbered in the PRD's order. Under each heading: a one-line statement, then Given / When / Then acceptance criteria, each precise enough to write a test from (use numbers). Include the requirements the code does not meet yet. Do not guess what a vague sentence means: put it under \"Flagged: too vague to test\" with the question it raises, and do not make it a requirement. Do not invent requirements the PRD does not have.\n\nACCEPTANCE: Non-goals from section 10; an \"Owner:\" line; a Changelog with the first entry; the four vague sentences of section 9 flagged.\n\nVERIFY: Read each requirement against the PRD. Then npm run step -- 2, and commit the draft before you change it.",
+    "approach": "The structured spec is the intermediate step the deck insists on: generating code straight from PRD prose gives vague code faster. The three habits of this milestone are IDs that never change, criteria you could write a test from, and flagged questions instead of confident guesses.\n\nThe first draft will contain a guess. Do not fix it yet: commit it, so that the history shows what the AI wrote and what a person changed.",
+    "commonMistakes": [
+      "Turning \"eligibility checks should be fast\" into a requirement. It cannot be tested as written.",
+      "Leaving out the requirements the code does not meet (a spec that only describes the code is documentation, not a spec).",
+      "Criteria without numbers (\"enough stock\", \"heavy\"), which cannot become a test.",
+      "No Non-goals, so the AI is free to build substitutions and delivery.",
+      "Fixing the draft before the first commit, so the history never shows the AI's version.",
+      "Renumbering the requirements later: an ID is stable, it names one requirement forever."
+    ]
+  }
+}

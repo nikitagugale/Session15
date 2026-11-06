@@ -1,0 +1,30 @@
+// BOPIS (buy online, pick up in store) eligibility. First shipped in sprint 1, changed in sprints 2 and 3.
+//
+// isBopisEligible(item, ctx) says whether ONE item can be offered for pickup at the customer's chosen store.
+//
+//   item: { sku, name, category, weightKg, price, shelfLifeDays, hazmat, ageRestricted, supplier_recall }
+//         (only sku and category are always present)
+//   ctx:  { quantity = 1, storeStock = Infinity, storeOpen = true, ageVerified = false }
+//
+// It returns true or false. It never throws for a missing field: a missing field counts as "no".
+// Every rule below carries the ID of the requirement in spec/bopis-eligibility.md that it implements.
+
+const MAX_QUANTITY = 6; // REQ-002
+const STOCK_BUFFER = 2; // REQ-001
+const HIGH_VALUE = 2000; // REQ-009
+// REQ-003: perishable means one of these five categories. Pantry items are shelf-stable, whatever the date on the packet.
+const PERISHABLE = ['produce', 'dairy', 'meat', 'frozen', 'bakery'];
+
+export function isBopisEligible(item, ctx = {}) {
+  const { quantity = 1, storeStock = Infinity, storeOpen = true, ageVerified = false } = ctx;
+
+  if (!storeOpen) return false; // REQ-007
+  if (item.category === 'gift-card') return false; // REQ-006
+  if (item.hazmat) return false; // REQ-004
+  if (item.ageRestricted && !ageVerified) return false; // REQ-005
+  if (quantity > MAX_QUANTITY) return false; // REQ-002
+  if (storeStock < quantity + STOCK_BUFFER) return false; // REQ-001
+  if (item.price > HIGH_VALUE) return false; // REQ-009
+  if (PERISHABLE.includes(item.category)) return false; // REQ-003
+  return true;
+}
